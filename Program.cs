@@ -1,4 +1,5 @@
 ﻿using System;
+using BenchmarkDotNet.Running;
 
 namespace linq_perf
 {
@@ -6,7 +7,8 @@ namespace linq_perf
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // BenchmarkRunner.Run<WhereSelectBenchmarks>();
+            BenchmarkRunner.Run<FirstBenchmarks>();
         }
     }
 }
