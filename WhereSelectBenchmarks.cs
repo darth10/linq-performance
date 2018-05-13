@@ -4,7 +4,6 @@ using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Validators;
 using Nessos.LinqOptimizer.CSharp;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
