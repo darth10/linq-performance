@@ -82,4 +82,34 @@ namespace linq_perf
             return result;
         }
     }
+
+
+    [Config(typeof(BenchmarkConfig))]
+    public class FindBenchmarks
+    {
+        private static readonly List<int> items = Enumerable.Range(0, 10000).ToList();
+
+        [Benchmark(Baseline = true)]
+        public int IterativeFirst()
+        {
+            int result = -1;
+            foreach (var item in items)
+            {
+                if (item * 2 == 10000)
+                {
+                    result = item;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        [Benchmark]
+        public int ListFindFirst()
+        {
+            int result = items.Find(i => (i * 2) == 10000);
+            return result;
+        }
+    }
 }
