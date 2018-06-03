@@ -2,7 +2,7 @@
 
 ## Results
 
-* `IEnumerable<T>.Select()`, `IEnumerable<T>.Where()`, `IEnumerable<T>.ToList()` using `Array<T>`:
+* `Select()` and `Where()`:
 
 ```
 BenchmarkDotNet=v0.10.14, OS=ubuntu 16.04
@@ -36,7 +36,7 @@ Outliers
   1 us      : 1 Microsecond (0.000001 sec)
 ```
 
-* `IEnumerable<T>.First()`, `IEnumerable<T>.Single()` using `Array<T>`:
+* `First()`:
 
 ```
 BenchmarkDotNet=v0.10.14, OS=ubuntu 16.04
@@ -68,30 +68,6 @@ Outliers
   Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
   1 us      : 1 Microsecond (0.000001 sec)
 
-```
-
-* `IEnumerable<T>.First()` and `List<T>.Find()` using `List<T>`:
-
-```
-BenchmarkDotNet=v0.10.14, OS=ubuntu 16.04
-Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical cores
-.NET Core SDK=2.1.4
-  [Host]     : .NET Core 2.0.5 (CoreCLR 4.6.0.0, CoreFX 4.6.26018.01), 64bit RyuJIT
-  DefaultJob : .NET Core 2.0.5 (CoreCLR 4.6.0.0, CoreFX 4.6.26018.01), 64bit RyuJIT
-
-
-         Method |     Mean |     Error |    StdDev | Scaled | Allocated |
---------------- |---------:|----------:|----------:|-------:|----------:|
- IterativeFirst | 17.09 us | 0.1502 us | 0.1405 us |   1.00 |       0 B |
-  ListFindFirst | 16.97 us | 0.1004 us | 0.0939 us |   0.99 |       0 B |
-
-// * Legends *
-  Mean      : Arithmetic mean of all measurements
-  Error     : Half of 99.9% confidence interval
-  StdDev    : Standard deviation of all measurements
-  Scaled    : Mean(CurrentBenchmark) / Mean(BaselineBenchmark)
-  Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
-  1 us      : 1 Microsecond (0.000001 sec)
 ```
 
 ## Haskell equivalent and results
