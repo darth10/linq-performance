@@ -12,10 +12,14 @@ Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical co
   DefaultJob : .NET Core 2.0.5 (CoreCLR 4.6.0.0, CoreFX 4.6.26018.01), 64bit RyuJIT
 
 
-        Method |     Mean |     Error |    StdDev | Scaled | ScaledSD |  Gen 0 | Allocated |
--------------- |---------:|----------:|----------:|-------:|---------:|-------:|----------:|
- IterativeList | 19.25 us | 0.2457 us | 0.2178 us |   1.00 |     0.00 | 5.3406 |   8.23 KB |
-      LinqList | 41.15 us | 0.2604 us | 0.2436 us |   2.14 |     0.03 | 5.3711 |   8.34 KB |
+               Method |      Mean |     Error |    StdDev | Scaled | ScaledSD | Allocated |
+--------------------- |----------:|----------:|----------:|-------:|---------:|----------:|
+   IterativeFirstList | 15.355 us | 0.1101 us | 0.1030 us |   1.00 |     0.00 |       0 B |
+        LinqFirstList | 52.695 us | 0.2218 us | 0.2075 us |   3.43 |     0.03 |      40 B |
+  LinqFasterFirstList | 18.596 us | 0.0908 us | 0.0849 us |   1.21 |     0.01 |       0 B |
+  IterativeFirstArray |  3.121 us | 0.0188 us | 0.0176 us |   0.20 |     0.00 |       0 B |
+       LinqFirstArray | 40.527 us | 0.2536 us | 0.2373 us |   2.64 |     0.02 |      32 B |
+ LinqFasterFirstArray | 16.950 us | 0.0740 us | 0.0692 us |   1.10 |     0.01 |       0 B |
 
 // * Hints *
 Outliers
@@ -42,11 +46,14 @@ Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical co
   DefaultJob : .NET Core 2.0.5 (CoreCLR 4.6.0.0, CoreFX 4.6.26018.01), 64bit RyuJIT
 
 
-         Method |      Mean |     Error |    StdDev | Scaled | ScaledSD | Allocated |
---------------- |----------:|----------:|----------:|-------:|---------:|----------:|
- IterativeFirst |  3.113 us | 0.0160 us | 0.0150 us |   1.00 |     0.00 |       0 B |
-      LinqFirst | 41.126 us | 1.9823 us | 1.8542 us |  13.21 |     0.58 |      32 B |
-     LinqSingle | 78.866 us | 0.5188 us | 0.4852 us |  25.33 |     0.19 |      32 B |
+                     Method |     Mean |     Error |    StdDev |   Median | Scaled | ScaledSD |   Gen 0 | Allocated |
+--------------------------- |---------:|----------:|----------:|---------:|-------:|---------:|--------:|----------:|
+   IterativeWhereSelectList | 51.57 us | 0.1178 us | 0.1044 us | 51.57 us |   1.00 |     0.00 |  5.3101 |   8.23 KB |
+        LinqWhereSelectList | 41.70 us | 0.7279 us | 0.6809 us | 41.46 us |   0.81 |     0.01 |  5.4321 |   8.38 KB |
+  LinqFasterWhereSelectList | 41.72 us | 0.2526 us | 0.2363 us | 41.73 us |   0.81 |     0.00 |  5.3101 |   8.23 KB |
+  IterativeWhereSelectArray | 20.97 us | 0.4187 us | 1.1878 us | 20.47 us |   0.41 |     0.02 |  7.9041 |  12.16 KB |
+       LinqWhereSelectArray | 44.96 us | 0.5785 us | 0.4831 us | 44.82 us |   0.87 |     0.01 |  5.4321 |    8.4 KB |
+ LinqFasterWhereSelectArray | 41.25 us | 0.8212 us | 1.2038 us | 40.83 us |   0.80 |     0.02 | 27.7710 |  43.02 KB |
 
 // * Hints *
 Outliers
