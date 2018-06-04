@@ -1,24 +1,12 @@
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Diagnosers;
-using BenchmarkDotNet.Validators;
 using JM.LinqFaster;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace linq_perf
 {
-    class BenchmarkConfig : ManualConfig
-    {
-        public BenchmarkConfig()
-        {
-            Add(JitOptimizationsValidator.FailOnError);
-            Add(new MemoryDiagnoser());
-        }
-    }
-    
     [Config(typeof(BenchmarkConfig))]
-    public partial class WhereSelectBenchmarks
+    public class WhereSelectBenchmarks
     {
         private static readonly List<int> itemsList = Enumerable.Range(0, 10000).ToList();
 
@@ -132,9 +120,7 @@ namespace linq_perf
             foreach (var item in itemsArray)
             {
                 if (item * 2 == 10000)
-                {
                     return result;
-                }
             }
 
             return result;

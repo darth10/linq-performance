@@ -2,7 +2,7 @@
 
 ## Results
 
-* `Select()` and `Where()`:
+* `First()`:
 
 ```
 BenchmarkDotNet=v0.10.14, OS=ubuntu 16.04
@@ -36,7 +36,7 @@ Outliers
   1 us      : 1 Microsecond (0.000001 sec)
 ```
 
-* `First()`:
+* `Select()` and `Where()`:
 
 ```
 BenchmarkDotNet=v0.10.14, OS=ubuntu 16.04
