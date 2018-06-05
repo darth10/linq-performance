@@ -14,8 +14,9 @@ namespace linq_perf
         public List<int> IterativeWhereSelectList()
         {
             var results = new List<int>();
-            foreach (var item in itemsList)
+            for (int i = 0; i < itemsList.Count; i++)
             {
+                int item = itemsList[i];
                 if (item % 10 == 0)
                     results.Add(item + 5);
             }

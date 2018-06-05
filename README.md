@@ -46,14 +46,14 @@ Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical co
   DefaultJob : .NET Core 2.0.5 (CoreCLR 4.6.0.0, CoreFX 4.6.26018.01), 64bit RyuJIT
 
 
-                     Method |     Mean |     Error |    StdDev |   Median | Scaled | ScaledSD |   Gen 0 | Allocated |
---------------------------- |---------:|----------:|----------:|---------:|-------:|---------:|--------:|----------:|
-   IterativeWhereSelectList | 51.57 us | 0.1178 us | 0.1044 us | 51.57 us |   1.00 |     0.00 |  5.3101 |   8.23 KB |
-        LinqWhereSelectList | 41.70 us | 0.7279 us | 0.6809 us | 41.46 us |   0.81 |     0.01 |  5.4321 |   8.38 KB |
-  LinqFasterWhereSelectList | 41.72 us | 0.2526 us | 0.2363 us | 41.73 us |   0.81 |     0.00 |  5.3101 |   8.23 KB |
-  IterativeWhereSelectArray | 20.97 us | 0.4187 us | 1.1878 us | 20.47 us |   0.41 |     0.02 |  7.9041 |  12.16 KB |
-       LinqWhereSelectArray | 44.96 us | 0.5785 us | 0.4831 us | 44.82 us |   0.87 |     0.01 |  5.4321 |    8.4 KB |
- LinqFasterWhereSelectArray | 41.25 us | 0.8212 us | 1.2038 us | 40.83 us |   0.80 |     0.02 | 27.7710 |  43.02 KB |
+                     Method |     Mean |     Error |    StdDev | Scaled |   Gen 0 | Allocated |
+--------------------------- |---------:|----------:|----------:|-------:|--------:|----------:|
+   IterativeWhereSelectList | 39.37 us | 0.2213 us | 0.2070 us |   1.00 |  5.3101 |   8.23 KB |
+        LinqWhereSelectList | 41.23 us | 0.3464 us | 0.2893 us |   1.05 |  5.4321 |   8.38 KB |
+  LinqFasterWhereSelectList | 44.31 us | 0.2855 us | 0.2670 us |   1.13 |  5.3101 |   8.23 KB |
+  IterativeWhereSelectArray | 19.74 us | 0.1430 us | 0.1268 us |   0.50 |  7.9041 |  12.16 KB |
+       LinqWhereSelectArray | 38.06 us | 0.1851 us | 0.1732 us |   0.97 |  5.4321 |    8.4 KB |
+ LinqFasterWhereSelectArray | 39.88 us | 0.3760 us | 0.3333 us |   1.01 | 27.7710 |  43.02 KB |
 
 // * Hints *
 Outliers
