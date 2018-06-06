@@ -7,7 +7,8 @@ namespace linq_perf
         static void Main(string[] args)
         {
             // BenchmarkRunner.Run<WhereSelectBenchmarks>();
-            BenchmarkRunner.Run<FirstBenchmarks>();
+            // BenchmarkRunner.Run<FirstBenchmarks>();
+            BenchmarkRunner.Run<TransducerBenchmarks>();
         }
     }
 }

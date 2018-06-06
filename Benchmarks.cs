@@ -6,6 +6,56 @@ using System.Linq;
 namespace linq_perf
 {
     [Config(typeof(BenchmarkConfig))]
+    public class TransducerBenchmarks
+    {
+        private static readonly List<int> itemsList = Enumerable.Range(0, 10000).ToList();
+
+        // [Benchmark(Baseline = true)]
+        // public List<int> IterativeWhereSelectList()
+        // {
+        //     var results = new List<int>();
+        //     for (int i = 0; i < itemsList.Count; i++)
+        //     {
+        //         int item = itemsList[i];
+        //         if (item % 10 == 0)
+        //             results.Add(item + 5);
+        //     }
+
+        //     return results;
+        // }
+
+        // [Benchmark]
+        [Benchmark(Baseline = true)]
+        public List<int> LinqWhereSelectList()
+        {
+            var results = itemsList
+                .Where(i => i % 10 == 0)
+                .Select(i => i + 5)
+                .ToList();
+            return results;
+        }
+
+        [Benchmark]
+        public List<int> TransducerWhereSelectList()
+        {
+            var filterXForm = new FilterTransducer<int>(i => i % 10 == 0);
+            var mapXForm = new MapTransducer<int, int>(i => i + 5);
+
+            var reducer =
+                filterXForm.Transduce(
+                    mapXForm.Transduce(
+                        new ToListReducer<int>()));
+
+            var results = new List<int>();
+            for (int i = 0; i < itemsList.Count; i++)
+            {
+                results = reducer.Reduce(results, itemsList[i]);
+            }
+            return results;
+        }
+    }
+
+    [Config(typeof(BenchmarkConfig))]
     public class WhereSelectBenchmarks
     {
         private static readonly List<int> itemsList = Enumerable.Range(0, 10000).ToList();
