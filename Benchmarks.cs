@@ -8,7 +8,7 @@ namespace linq_perf
     [Config(typeof(BenchmarkConfig))]
     public class TransducerBenchmarks
     {
-        private static readonly List<int> itemsList = Enumerable.Range(0, 10000).ToList();
+        private static readonly List<int> itemsList = Enumerable.Range(0, 100000).ToList();
 
         // [Benchmark(Baseline = true)]
         // public List<int> IterativeWhereSelectList()
@@ -58,7 +58,7 @@ namespace linq_perf
     [Config(typeof(BenchmarkConfig))]
     public class WhereSelectBenchmarks
     {
-        private static readonly List<int> itemsList = Enumerable.Range(0, 10000).ToList();
+        private static readonly List<int> itemsList = Enumerable.Range(0, 100000).ToList();
 
         [Benchmark(Baseline = true)]
         public List<int> IterativeWhereSelectList()
@@ -92,7 +92,7 @@ namespace linq_perf
             return results;
         }
 
-        private static readonly int[] itemsArray = Enumerable.Range(0, 10000).ToArray();
+        private static readonly int[] itemsArray = Enumerable.Range(0, 100000).ToArray();
 
         [Benchmark]
         public int[] IterativeWhereSelectArray()
@@ -131,7 +131,7 @@ namespace linq_perf
     [Config(typeof(BenchmarkConfig))]
     public class FirstBenchmarks
     {
-        private static readonly List<int> itemsList = Enumerable.Range(0, 10000).ToList();
+        private static readonly List<int> itemsList = Enumerable.Range(0, 100000).ToList();
 
         [Benchmark(Baseline = true)]
         public int IterativeFirstList()
@@ -139,7 +139,7 @@ namespace linq_perf
             int result = -1;
             foreach (var item in itemsList)
             {
-                if (item * 2 == 10000)
+                if (item * 2 == 100000)
                 {
                     return result;
                 }
@@ -151,18 +151,18 @@ namespace linq_perf
         [Benchmark]
         public int LinqFirstList()
         {
-            int result = itemsList.First(i => (i * 2) == 10000);
+            int result = itemsList.First(i => (i * 2) == 100000);
             return result;
         }
 
         [Benchmark]
         public int LinqFasterFirstList()
         {
-            int result = itemsList.FirstF(i => (i * 2) == 10000);
+            int result = itemsList.FirstF(i => (i * 2) == 100000);
             return result;
         }
 
-        private static readonly int[] itemsArray = Enumerable.Range(0, 10000).ToArray();
+        private static readonly int[] itemsArray = Enumerable.Range(0, 100000).ToArray();
 
         [Benchmark]
         public int IterativeFirstArray()
@@ -170,7 +170,7 @@ namespace linq_perf
             int result = -1;
             foreach (var item in itemsArray)
             {
-                if (item * 2 == 10000)
+                if (item * 2 == 100000)
                     return result;
             }
 
@@ -180,14 +180,14 @@ namespace linq_perf
         [Benchmark]
         public int LinqFirstArray()
         {
-            int result = itemsArray.First(i => (i * 2) == 10000);
+            int result = itemsArray.First(i => (i * 2) == 100000);
             return result;
         }
 
         [Benchmark]
         public int LinqFasterFirstArray()
         {
-            int result = itemsArray.FirstF(i => (i * 2) == 10000);
+            int result = itemsArray.FirstF(i => (i * 2) == 100000);
             return result;
         }
     }

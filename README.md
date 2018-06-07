@@ -12,14 +12,14 @@ Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical co
   DefaultJob : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
 
 
-               Method |      Mean |     Error |    StdDev | Scaled | ScaledSD | Allocated |
---------------------- |----------:|----------:|----------:|-------:|---------:|----------:|
-   IterativeFirstList | 16.630 us | 0.4226 us | 1.1639 us |   1.00 |     0.00 |       0 B |
-        LinqFirstList | 49.500 us | 0.2885 us | 0.2409 us |   2.99 |     0.19 |      40 B |
-  LinqFasterFirstList | 14.970 us | 0.2989 us | 0.4826 us |   0.90 |     0.06 |       0 B |
-  IterativeFirstArray |  3.285 us | 0.0655 us | 0.0960 us |   0.20 |     0.01 |       0 B |
-       LinqFirstArray | 40.706 us | 0.7966 us | 1.3742 us |   2.46 |     0.18 |      32 B |
- LinqFasterFirstArray | 14.126 us | 0.1577 us | 0.1475 us |   0.85 |     0.06 |       0 B |
+               Method |      Mean |      Error |     StdDev |    Median | Scaled |  Allocated |
+--------------------- |----------:|-----------:|-----------:|----------:|-------:|-----------:|
+   IterativeFirstList | 171.72 us |  5.2406 us | 14.6086 us | 166.67 us |   1.00 |        0 B |
+        LinqFirstList | 510.86 us | 15.1985 us | 21.3062 us | 503.74 us |   2.99 |       40 B |
+  LinqFasterFirstList | 139.00 us |  0.9755 us |  0.9125 us | 139.07 us |   0.81 |        0 B |
+  IterativeFirstArray |  31.08 us |  0.3263 us |  0.2725 us |  31.04 us |   0.18 |        0 B |
+       LinqFirstArray | 406.34 us |  8.0453 us | 16.4345 us | 403.84 us |   2.38 |       32 B |
+ LinqFasterFirstArray | 140.86 us |  0.5012 us |  0.4186 us | 140.92 us |   0.83 |        0 B |
 
 // * Hints *
 Outliers
@@ -46,14 +46,14 @@ Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical co
   DefaultJob : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
 
 
-                     Method |     Mean |     Error |    StdDev | Scaled | ScaledSD |   Gen 0 | Allocated |
---------------------------- |---------:|----------:|----------:|-------:|---------:|--------:|----------:|
-   IterativeWhereSelectList | 40.07 us | 0.8403 us | 1.0627 us |   1.00 |     0.00 |  5.3101 |   8.23 KB |
-        LinqWhereSelectList | 42.06 us | 0.8222 us | 1.0398 us |   1.05 |     0.04 |  5.4321 |   8.38 KB |
-  LinqFasterWhereSelectList | 47.32 us | 0.9427 us | 2.6742 us |   1.18 |     0.07 |  5.3101 |   8.23 KB |
-  IterativeWhereSelectArray | 20.35 us | 0.3983 us | 0.7481 us |   0.51 |     0.02 |  7.9041 |  12.16 KB |
-       LinqWhereSelectArray | 38.22 us | 0.2628 us | 0.2458 us |   0.95 |     0.02 |  5.4321 |    8.4 KB |
- LinqFasterWhereSelectArray | 39.87 us | 0.4218 us | 0.3946 us |   1.00 |     0.03 | 27.7710 |  43.02 KB |
+                     Method |     Mean |    Error |    StdDev |   Median | Scaled | Allocated |
+--------------------------- |---------:|---------:|----------:|---------:|-------:|----------:|
+   IterativeWhereSelectList | 430.6 us | 8.237 us | 11.274 us | 428.8 us |   1.00 | 128.33 KB |
+        LinqWhereSelectList | 432.5 us | 3.976 us |  3.320 us | 432.3 us |   1.01 | 128.48 KB |
+  LinqFasterWhereSelectList | 468.4 us | 4.619 us |  4.320 us | 467.7 us |   1.09 | 128.33 KB |
+  IterativeWhereSelectArray | 227.5 us | 4.147 us |  3.879 us | 227.1 us |   0.53 | 167.41 KB |
+       LinqWhereSelectArray | 399.5 us | 7.957 us | 21.915 us | 392.7 us |   0.93 |  103.8 KB |
+ LinqFasterWhereSelectArray | 437.4 us | 8.730 us | 15.742 us | 430.3 us |   1.02 | 429.73 KB |
 
 // * Hints *
 Outliers
@@ -76,13 +76,10 @@ Outliers
 import Criterion.Main
 
 items :: [Int]
-items = [1..10000]
-
-is5000 :: Int -> Bool
-is5000 i = (i * 2) == 10000
+items = [1..100000]
 
 doSameThingAsFirst :: [Int] -> Int
-doSameThingAsFirst xs = head $ filter is5000 xs
+doSameThingAsFirst xs = head $ filter (\i -> (i * 2) == 100000) xs
 
 main :: IO ()
 main = defaultMain [
@@ -97,9 +94,9 @@ Compiled with `-O2`
 
 ```
 benchmarking doSameThingAsFirst/1
-time                 16.31 us   (16.18 us .. 16.45 us)
+time                 180.8 μs   (179.2 μs .. 181.9 μs)
                      0.999 R²   (0.999 R² .. 1.000 R²)
-mean                 16.18 us   (16.08 us .. 16.29 us)
-std dev              352.7 ns   (266.6 ns .. 468.7 ns)
-variance introduced by outliers: 21% (moderately inflated)
+mean                 180.3 μs   (179.2 μs .. 182.0 μs)
+std dev              4.508 μs   (3.249 μs .. 7.936 μs)
+variance introduced by outliers: 19% (moderately inflated)
 ```
