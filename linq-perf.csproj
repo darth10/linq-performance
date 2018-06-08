@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.10.14" />
     <PackageReference Include="LinqFaster" Version="1.0.0" />
+    <DotNetCliToolReference Include="dotnet-ildasm" Version="*" />
   </ItemGroup>
 
 </Project>
