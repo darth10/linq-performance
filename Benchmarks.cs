@@ -46,11 +46,7 @@ namespace linq_perf
                     mapXForm.Transduce(
                         new ToListReducer<int>()));
 
-            var results = new List<int>();
-            for (int i = 0; i < itemsList.Count; i++)
-            {
-                results = reducer.Reduce(results, itemsList[i]);
-            }
+            var results = itemsList.Reduce(reducer);
             return results;
         }
     }
