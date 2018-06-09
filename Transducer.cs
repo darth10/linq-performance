@@ -77,7 +77,7 @@ namespace linq_perf
 
     public class MapTransducer<TIn, TOut> : ITransducer<TIn, TOut>
     {
-        private Func<TIn, TOut> _map;
+        private readonly Func<TIn, TOut> _map;
 
         public MapTransducer(Func<TIn, TOut> map) =>
             _map = map;
@@ -88,7 +88,7 @@ namespace linq_perf
 
     public class FilterTransducer<T> : ITransducer<T, T>
     {
-        private Func<T, bool> _filter;
+        private readonly Func<T, bool> _filter;
 
         public FilterTransducer(Func<T, bool> filter) =>
             _filter = filter;
