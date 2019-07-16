@@ -13,8 +13,8 @@ namespace linq_perf
 
     public class MapReducer<TIn, TOut, R> : IReducer<TIn, R>
     {
-        private readonly Func<TIn, TOut> _map;
-        private readonly IReducer<TOut, R> _reducer;
+        Func<TIn, TOut> _map { get; }
+        IReducer<TOut, R> _reducer { get; }
 
         public MapReducer(Func<TIn, TOut> map, IReducer<TOut, R> reducer) =>
             (_map, _reducer) = (map, reducer);
@@ -28,8 +28,8 @@ namespace linq_perf
 
     public class FilterReducer<T, R> : IReducer<T, R>
     {
-        private readonly Func<T, bool> _filter;
-        private readonly IReducer<T, R> _reducer;
+        Func<T, bool> _filter { get; }
+        IReducer<T, R> _reducer { get; }
 
         public FilterReducer(Func<T, bool> filter, IReducer<T, R> reducer) =>
             (_filter, _reducer) = (filter, reducer);
@@ -60,10 +60,9 @@ namespace linq_perf
         public static List<T> Reduce<T>(this List<T> input, IReducer<T, List<T>> reducer)
         {
             var result = new List<T>();
-
-            for (int i = 0; i< input.Count; i++)
+            foreach (T x in input)
             {
-                reducer.Reduce(result, input[i]);
+                reducer.Reduce(result, x);
             }
 
             return result;
@@ -77,7 +76,7 @@ namespace linq_perf
 
     public class MapTransducer<TIn, TOut> : ITransducer<TIn, TOut>
     {
-        private readonly Func<TIn, TOut> _map;
+        Func<TIn, TOut> _map { get; }
 
         public MapTransducer(Func<TIn, TOut> map) =>
             _map = map;
@@ -88,7 +87,7 @@ namespace linq_perf
 
     public class FilterTransducer<T> : ITransducer<T, T>
     {
-        private readonly Func<T, bool> _filter;
+        Func<T, bool> _filter { get; }
 
         public FilterTransducer(Func<T, bool> filter) =>
             _filter = filter;
