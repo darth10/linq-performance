@@ -5,68 +5,41 @@
 * `First()`:
 
 ```
-BenchmarkDotNet=v0.10.14, OS=ubuntu 16.04
+BenchmarkDotNet=v0.11.5, OS=ubuntu 18.04
 Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical cores
-.NET Core SDK=2.1.300
-  [Host]     : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
-  DefaultJob : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
+.NET Core SDK=2.2.301
+  [Host]     : .NET Core 2.2.6 (CoreCLR 4.6.27817.03, CoreFX 4.6.27818.02), 64bit RyuJIT
+  DefaultJob : .NET Core 2.2.6 (CoreCLR 4.6.27817.03, CoreFX 4.6.27818.02), 64bit RyuJIT
 
 
-               Method |      Mean |      Error |     StdDev |    Median | Scaled |  Allocated |
---------------------- |----------:|-----------:|-----------:|----------:|-------:|-----------:|
-   IterativeFirstList | 171.72 us |  5.2406 us | 14.6086 us | 166.67 us |   1.00 |        0 B |
-        LinqFirstList | 510.86 us | 15.1985 us | 21.3062 us | 503.74 us |   2.99 |       40 B |
-  LinqFasterFirstList | 139.00 us |  0.9755 us |  0.9125 us | 139.07 us |   0.81 |        0 B |
-  IterativeFirstArray |  31.08 us |  0.3263 us |  0.2725 us |  31.04 us |   0.18 |        0 B |
-       LinqFirstArray | 406.34 us |  8.0453 us | 16.4345 us | 403.84 us |   2.38 |       32 B |
- LinqFasterFirstArray | 140.86 us |  0.5012 us |  0.4186 us | 140.92 us |   0.83 |        0 B |
-
-// * Hints *
-Outliers
-  WhereSelectBenchmarks.IterativeList: Default -> 1 outlier  was  removed
-
-// * Legends *
-  Mean      : Arithmetic mean of all measurements
-  Error     : Half of 99.9% confidence interval
-  StdDev    : Standard deviation of all measurements
-  Scaled    : Mean(CurrentBenchmark) / Mean(BaselineBenchmark)
-  ScaledSD  : Standard deviation of ratio of distribution of [CurrentBenchmark] and [BaselineBenchmark]
-  Gen 0     : GC Generation 0 collects per 1k Operations
-  Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
-  1 us      : 1 Microsecond (0.000001 sec)
+|               Method |      Mean |     Error |    StdDev | Ratio | RatioSD | Gen 0 | Gen 1 | Gen 2 | Allocated |
+|--------------------- |----------:|----------:|----------:|------:|--------:|------:|------:|------:|----------:|
+|   IterativeFirstList | 153.39 us | 2.3878 us | 2.1167 us |  1.00 |    0.00 |     - |     - |     - |         - |
+|        LinqFirstList | 478.37 us | 4.2302 us | 3.7500 us |  3.12 |    0.04 |     - |     - |     - |      40 B |
+|  LinqFasterFirstList | 138.72 us | 1.0194 us | 0.9036 us |  0.90 |    0.01 |     - |     - |     - |         - |
+|  IterativeFirstArray |  30.63 us | 0.0569 us | 0.0444 us |  0.20 |    0.00 |     - |     - |     - |         - |
+|       LinqFirstArray | 390.25 us | 7.4436 us | 7.3106 us |  2.55 |    0.07 |     - |     - |     - |      32 B |
+| LinqFasterFirstArray | 138.69 us | 1.2221 us | 1.1431 us |  0.90 |    0.02 |     - |     - |     - |         - |
 ```
 
 * `Select()` and `Where()`:
 
 ```
-BenchmarkDotNet=v0.10.14, OS=ubuntu 16.04
+BenchmarkDotNet=v0.11.5, OS=ubuntu 18.04
 Intel Core i5-3320M CPU 2.60GHz (Ivy Bridge), 1 CPU, 4 logical and 2 physical cores
-.NET Core SDK=2.1.300
-  [Host]     : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
-  DefaultJob : .NET Core 2.1.0 (CoreCLR 4.6.26515.07, CoreFX 4.6.26515.06), 64bit RyuJIT
+.NET Core SDK=2.2.301
+  [Host]     : .NET Core 2.2.6 (CoreCLR 4.6.27817.03, CoreFX 4.6.27818.02), 64bit RyuJIT
+  DefaultJob : .NET Core 2.2.6 (CoreCLR 4.6.27817.03, CoreFX 4.6.27818.02), 64bit RyuJIT
 
 
-                     Method |     Mean |    Error |    StdDev |   Median | Scaled | Allocated |
---------------------------- |---------:|---------:|----------:|---------:|-------:|----------:|
-   IterativeWhereSelectList | 430.6 us | 8.237 us | 11.274 us | 428.8 us |   1.00 | 128.33 KB |
-        LinqWhereSelectList | 432.5 us | 3.976 us |  3.320 us | 432.3 us |   1.01 | 128.48 KB |
-  LinqFasterWhereSelectList | 468.4 us | 4.619 us |  4.320 us | 467.7 us |   1.09 | 128.33 KB |
-  IterativeWhereSelectArray | 227.5 us | 4.147 us |  3.879 us | 227.1 us |   0.53 | 167.41 KB |
-       LinqWhereSelectArray | 399.5 us | 7.957 us | 21.915 us | 392.7 us |   0.93 |  103.8 KB |
- LinqFasterWhereSelectArray | 437.4 us | 8.730 us | 15.742 us | 430.3 us |   1.02 | 429.73 KB |
-
-// * Hints *
-Outliers
-  FirstBenchmarks.LinqFirst: Default -> 2 outliers were removed
-
-// * Legends *
-  Mean      : Arithmetic mean of all measurements
-  Error     : Half of 99.9% confidence interval
-  StdDev    : Standard deviation of all measurements
-  Scaled    : Mean(CurrentBenchmark) / Mean(BaselineBenchmark)
-  ScaledSD  : Standard deviation of ratio of distribution of [CurrentBenchmark] and [BaselineBenchmark]
-  Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
-  1 us      : 1 Microsecond (0.000001 sec)
+|                     Method |     Mean |    Error |   StdDev | Ratio | RatioSD |    Gen 0 |    Gen 1 |    Gen 2 | Allocated |
+|--------------------------- |---------:|---------:|---------:|------:|--------:|---------:|---------:|---------:|----------:|
+|   IterativeWhereSelectList | 497.2 us | 9.904 us | 9.264 us |  1.00 |    0.00 |  62.5000 |  15.6250 |        - | 128.33 KB |
+|        LinqWhereSelectList | 462.0 us | 8.960 us | 8.381 us |  0.93 |    0.02 |  62.0117 |  15.1367 |        - | 128.48 KB |
+|  LinqFasterWhereSelectList | 457.1 us | 3.676 us | 3.439 us |  0.92 |    0.02 |  62.5000 |  15.6250 |        - | 128.33 KB |
+|  IterativeWhereSelectArray | 225.4 us | 4.192 us | 4.305 us |  0.45 |    0.01 |  75.4395 |  18.7988 |        - | 167.41 KB |
+|       LinqWhereSelectArray | 411.0 us | 3.993 us | 3.540 us |  0.83 |    0.02 |  66.4063 |        - |        - |  103.8 KB |
+| LinqFasterWhereSelectArray | 415.5 us | 3.324 us | 2.947 us |  0.84 |    0.02 | 124.5117 | 124.5117 | 124.5117 | 429.73 KB |
 
 ```
 

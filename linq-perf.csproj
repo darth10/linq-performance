@@ -2,13 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.10.14" />
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
     <PackageReference Include="LinqFaster" Version="1.0.0" />
-    <DotNetCliToolReference Include="dotnet-ildasm" Version="*" />
   </ItemGroup>
 
 </Project>

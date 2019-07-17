@@ -9,7 +9,7 @@ namespace linq_perf
         public BenchmarkConfig()
         {
             Add(JitOptimizationsValidator.FailOnError);
-            Add(new MemoryDiagnoser());
+            Add(MemoryDiagnoser.Default);
         }
     }
 }
