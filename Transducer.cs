@@ -7,7 +7,6 @@ namespace linq_perf
 {
     public interface IReducer<T, R>
     {
-        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         R Reduce(R result, T input);
     }
 
@@ -19,7 +18,6 @@ namespace linq_perf
         public MapReducer(Func<TIn, TOut> map, IReducer<TOut, R> reducer) =>
             (_map, _reducer) = (map, reducer);
 
-        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public R Reduce(R result, TIn input)
         {
             return _reducer.Reduce(result, _map(input));
@@ -34,7 +32,6 @@ namespace linq_perf
         public FilterReducer(Func<T, bool> filter, IReducer<T, R> reducer) =>
             (_filter, _reducer) = (filter, reducer);
 
-        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public R Reduce(R result, T input)
         {
             if (_filter(input))
@@ -44,10 +41,8 @@ namespace linq_perf
         }
     }
 
-    // TODO replace with NOP reducer
     public class ToListReducer<T> : IReducer<T, List<T>>
     {
-        // [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public List<T> Reduce(List<T> result, T input)
         {
             result.Add(input);
@@ -55,9 +50,9 @@ namespace linq_perf
         }
     }
 
-    public static class ListReduce
+    public static class ListTransducer
     {
-        public static List<T> Reduce<T>(this List<T> input, IReducer<T, List<T>> reducer)
+        public static List<T> Transduce<T>(this IEnumerable<T> input, IReducer<T, List<T>> reducer)
         {
             var result = new List<T>();
             foreach (T x in input)
