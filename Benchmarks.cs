@@ -1,16 +1,19 @@
 using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
 using JM.LinqFaster;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace linq_perf
 {
-    [Config(typeof(BenchmarkConfig))]
-    public class WhereSelectBenchmarks
+    [MemoryDiagnoser]
+    [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
+    [CategoriesColumn]
+    public partial class WhereSelectBenchmarks
     {
         private static readonly List<int> itemsList = Enumerable.Range(0, 100000).ToList();
 
-        [Benchmark(Baseline = true)]
+        [Benchmark(Baseline = true), BenchmarkCategory("ToList")]
         public List<int> IterativeWhereSelectList()
         {
             var results = new List<int>();
@@ -24,7 +27,7 @@ namespace linq_perf
             return results;
         }
 
-        [Benchmark]
+        [Benchmark, BenchmarkCategory("ToList")]
         public List<int> LinqWhereSelectList()
         {
             var results = itemsList
@@ -34,7 +37,7 @@ namespace linq_perf
             return results;
         }
 
-        [Benchmark]
+        [Benchmark, BenchmarkCategory("ToList")]
         public List<int> LinqFasterWhereSelectList()
         {
             var results = itemsList
@@ -44,7 +47,7 @@ namespace linq_perf
 
         private static readonly int[] itemsArray = Enumerable.Range(0, 100000).ToArray();
 
-        [Benchmark]
+        [Benchmark(Baseline = true), BenchmarkCategory("ToArray")]
         public int[] IterativeWhereSelectArray()
         {
             var accumulator = new List<int>();
@@ -59,7 +62,7 @@ namespace linq_perf
             return results;
         }
 
-        [Benchmark]
+        [Benchmark, BenchmarkCategory("ToArray")]
         public int[] LinqWhereSelectArray()
         {
             var results = itemsArray
@@ -69,7 +72,7 @@ namespace linq_perf
             return results;
         }
 
-        [Benchmark]
+        [Benchmark, BenchmarkCategory("ToArray")]
         public int[] LinqFasterWhereSelectArray()
         {
             var results = itemsArray
@@ -78,8 +81,8 @@ namespace linq_perf
         }
     }
 
-    [Config(typeof(BenchmarkConfig))]
-    public class FirstBenchmarks
+    [MemoryDiagnoser]
+    public partial class FirstBenchmarks
     {
         private static readonly List<int> itemsList = Enumerable.Range(0, 100000).ToList();
 
